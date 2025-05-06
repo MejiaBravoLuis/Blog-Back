@@ -9,6 +9,8 @@ import limiter from '../src/middlewares/validar-cant-peticiones.js';
 import userRoutes from '../src/users/user.routes.js'
 import authRoutes from '../src/auth/auth.routes.js'
 import courseRoutes from '../src/courses/course.routes.js'
+import publicationRoutes from '../src/publications/publication.routes.js'
+import commentRoutes from '../src/comments/comments.routes.js'
 
 const middlewares = (app) => {
     app.use(express.urlencoded({ extended: false }));
@@ -23,6 +25,8 @@ const routes = (app) => {
     app.use("/LearningBlog/v1/users", userRoutes);
     app.use("/LearningBlog/v1/auth", authRoutes);
     app.use("/LearningBlog/v1/course", courseRoutes);
+    app.use("/LearningBlog/v1/publications", publicationRoutes);
+    app.use("/LearningBlog/v1/comment", commentRoutes);
 }
 
 const conectarDB = async () => {
