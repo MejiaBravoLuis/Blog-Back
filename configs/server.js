@@ -23,8 +23,6 @@ const routes = (app) => {
     app.use("/LearningBlog/v1/users", userRoutes);
     app.use("/LearningBlog/v1/auth", authRoutes);
     app.use("/LearningBlog/v1/course", courseRoutes);
-    app.use("/LearningBlog/v1/publication", publicationRoutes);
-    app.use("/LearningBlog/v1/comments", commentRoutes);
 }
 
 const conectarDB = async () => {

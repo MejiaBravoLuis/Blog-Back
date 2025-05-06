@@ -1,8 +1,8 @@
-import Category from "./course.model.js";
+import Course from "./course.model.js";
 
-export const listCategories = async (req, res) => {
+export const listCourses = async (req, res) => {
     try {
-        const cateories = await Category.find({ status: true })
+        const cateories = await Course.find({ status: true })
         res.json({
             success: true,
             cateories
@@ -10,108 +10,74 @@ export const listCategories = async (req, res) => {
     } catch (error) {
         res.status(500).json({
             success: false,
-            message: "Ups, something went wrong trying to get the categories",
+            message: "Ups, something went wrong trying to get the Courses",
             error
         })
     }
 }
 
-export const addCategory = async (req, res) => {
+export const addCourse = async (req, res) => {
     try {
-        
-        const authenticatedUser = req.user;
-
-        if (!authenticatedUser || authenticatedUser.role !== "ADMIN") {
-            return res.status(403).json({
-                success: false,
-                message: "This action is only availiable for admins"
-            })
-        }
 
         const { name } = req.body;
-        const existCategory = await Category.findOne({ name });
-
-        if (existCategory) {
-            return res.status(400).json({
-                success: false,
-                message: `Category with name ${name} already exists`
-            })
-        }
-
-        const category = new Category({ name })
-        await category.save()
+        const course = new Course({ name })
+        await course.save()
 
         res.status(200).json({
             success: true,
-            message: `Category ${name} created succesfully`,
-            category
+            message: `Course ${name} created succesfully`,
+            Course
         })
     } catch (error) {
         res.status(500).json({
             success: false,
-            message: "Ups, something went wrong trying to create the category",
+            message: "Ups, something went wrong trying to create the Course",
             error
         })
     }
 }
 
-export const updateCategory = async (req, res) => {
+export const updateCourse = async (req, res) => {
     try {
         
         const { id } = req.params;
-        const authenticatedUser = req.user;
 
-        if (!authenticatedUser || authenticatedUser.role !== "ADMIN") {
-            return res.status(403).json({
-                success: false,
-                message: "You are not allowed to edit this category"
-            });
-        }
-
-        const updatedCategory = await Category.findByIdAndUpdate(id, req.body, { new: true })
-        if (!updatedCategory) {
+        const updatedCourse = await Course.findByIdAndUpdate(id, req.body, { new: true })
+        if (!updatedCourse) {
             return res.status(404).json({
                 success: false,
-                message: "Could not find the category"
+                message: "Could not find the Course"
             });
         }
 
         res.json({
             success: true,
-            message: "You've just updated the category successfully!!!",
-            category: updateCategory
+            message: "You've just updated the Course successfully!!!",
+            Course: updatedCourse
         })
     } catch (error) {
         res.status(500).json({
             succes: false,
-            message: "Ups, something went wrong trying to update the category"
+            message: "Ups, something went wrong trying to update the Course",
+            error: error.message,
         })
     }
 }
 
-export const deleteCategory = async (req, res) => {
+export const deleteCourse = async (req, res) => {
     try {
         const { id } = req.params
-        const authenticatedUser = req.user
-
-        if (!authenticatedUser || authenticatedUser.role !== "ADMIN") {
-            return res.status(403).json({
-                success: false,
-                message: "This action is only availiable for admins"
-            })
-        }
-
-        const category = await Category.findByIdAndUpdate( id, { status: false }, { new : true });
+        const course = await Course.findByIdAndUpdate( id, { status: false }, { new : true });
 
         res.status(200).json({
             success: true,
-            message: "Category deactivated succesfully",
-            category
+            message: "Course deactivated succesfully",
+            course
         })
     } catch (error) {
         res.status(200).json({
             success: false,
-            message: "Ups, something went wrong trying to deactivate the category",
+            message: "Ups, something went wrong trying to deactivate the Course",
             error
         })
     }

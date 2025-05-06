@@ -6,7 +6,15 @@ export const existenteEmail = async (email = '') => {
     const existeEmail = await User.findOne({ email });
 
     if(existeEmail){
-        throw new Error(`El email ${ email } ya existe en la base de datos`);
+        throw new Error(`El email ${ email } ya está en uso`);
+    }
+}
+
+export const existUsername = async (username = '') => {
+    const existenteUsername = await User.findOne({username});
+
+    if (existenteUsername) {
+        throw new Error(`El username ${ username } ya está en uso`)
     }
 }
 

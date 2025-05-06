@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { check } from "express-validator";
-import { addCategory, listCategories, deleteCategory, updateCategory } from "./course.controller.js";
+import { addCourse, listCourses, deleteCourse, updateCourse } from "./course.controller.js";
 import { validarCampos } from "../middlewares/validar-campos.js"
 import { validarJWT } from "../middlewares/validar-jwt.js"
 import { existCourse } from "../helpers/db-validator.js"
@@ -10,7 +10,7 @@ const router = Router();
 
 router.get(
     "/",
-    listCategories
+    listCourses
 )
 
 router.post(
@@ -19,9 +19,10 @@ router.post(
         validarJWT,
         tieneRole("ADMIN"),
         check("name", "The name is required").not().isEmpty(),
+        check("name").custom(existCourse),
         validarCampos
     ],
-    addCategory
+    addCourse
 )
 
 
@@ -34,7 +35,7 @@ router.put(
         check("id").custom(existCourse),
         validarCampos
     ],
-    updateCategory
+    updateCourse
 )
 
 
@@ -47,7 +48,7 @@ router.delete(
         check("id").custom(existCourse),
         validarCampos,
     ],
-    deleteCategory
+    deleteCourse
 );
 
 export default router;
