@@ -6,7 +6,7 @@ import {
     addPublication,
     updatePublication,
     deletePublication,
-    addCommitTo
+    addCommitTo, getPublicationsByCourseName
 } from "./publication.controller.js";
 
 import { validarCampos } from "../middlewares/validar-campos.js";
@@ -62,5 +62,11 @@ router.post(
     ],
     addCommitTo
 );
+
+router.get(
+    "/:name",
+    getPublicationsByCourseName
+);
+
 
 export default router;

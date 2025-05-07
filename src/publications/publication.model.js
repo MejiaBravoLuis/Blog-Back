@@ -23,7 +23,7 @@ const PublicationSchema = new Schema(
         },
         course: {
             type: Schema.Types.ObjectId,
-            ref: "Category",
+            ref: "Course",
             required: [true, "Add a Course"]
         },
         comments: [

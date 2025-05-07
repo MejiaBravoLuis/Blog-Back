@@ -17,7 +17,8 @@ export const getPublication = async (req, res) => {
     } catch (error) {
         res.status(500).json({
             success: false,
-            message: "Ups, something went wrong trying to list the publications"
+            message: "Ups, something went wrong trying to list the publications",
+            error: error.message
         });
     }
 };
@@ -43,10 +44,13 @@ export const addPublication = async (req, res) => {
 
         await newPublication.save();
 
+        const populatedPublication = await Publication.findById(newPublication._id)
+            .populate('user', 'username');
+
         res.status(201).json({
             success: true,
             message: "Publication added successfully",
-            publication: newPublication
+            publication: populatedPublication
         });
 
     } catch (error) {
@@ -58,6 +62,7 @@ export const addPublication = async (req, res) => {
         });
     }
 };
+
 
 export const updatePublication = async (req, res) => {
     try {
@@ -91,28 +96,38 @@ export const updatePublication = async (req, res) => {
     }
 };
 
+
 export const deletePublication = async (req, res) => {
     try {
         const { id } = req.params;
         const userId = req.user._id;
 
         const publication = await Publication.findOne({ _id: id, user: userId });
+        if (!publication) {
+            return res.status(403).json({
+                success: false,
+                message: "You are not allowed to delete this publication or it doesn't exist"
+            });
+        }
 
-        const deletedPublication = await Publication.findByIdAndDelete(id);
+        await Comment.deleteMany({ _id: { $in: publication.comments } });
+
+        await Publication.findByIdAndDelete(id);
 
         res.status(200).json({
             success: true,
-            message: "Publication deleted successfully",
-            id: id
+            message: "Publication and its comments deleted successfully",
+            id
         });
     } catch (error) {
         res.status(500).json({
             success: false,
             message: "Ups, something went wrong trying to delete the publication",
-            error
+            error: error.message
         });
     }
 };
+
 
 export const addCommitTo = async (req, res) => {
     try {
@@ -142,6 +157,38 @@ export const addCommitTo = async (req, res) => {
             success: false,
             message: "Ups, something went wrong trying to commit the publication",
             error
+        });
+    }
+};
+
+export const getPublicationsByCourseName = async (req, res) => {
+    try {
+        const { name } = req.params;
+
+        const course = await Course.findOne({ name: new RegExp(`^${name}$`, "i") });
+
+        if (!course) {
+            return res.status(404).json({
+                success: false,
+                message: `Course "${name}" not found`
+            });
+        }
+
+        const publications = await Publication.find({ course: course._id })
+            .populate("user", "username")
+            .populate("course", "name");
+
+        res.status(200).json({
+            success: true,
+            message: `Publications for course "${course.name}"`,
+            publications
+        });
+
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: "Ups, something went wrong trying to get the publications",
+            error: error.message
         });
     }
 };
