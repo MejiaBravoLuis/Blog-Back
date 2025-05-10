@@ -35,13 +35,6 @@ export const dbConnection = async () => {
                 } else {
                 }
 
-                const defaultCourse = await Course.findOne({ name: "default" });
-                if (!defaultCourse) {
-                    await Course.create({ name: "default" });
-                    console.log("Curso 'default' creado");
-                } else {
-                }
-
             } catch (error) {
                 console.error("Error al verificar/crear el admin:", error);
             }

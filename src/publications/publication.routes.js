@@ -64,7 +64,7 @@ router.post(
 );
 
 router.get(
-    "/:name",
+    "/course/:name",
     getPublicationsByCourseName
 );
 
