@@ -1,0 +1,75 @@
+[{
+  "_id": {
+    "$oid": "681ea043177321e3de7406ad"
+  },
+  "title": "¡Primer Bimestre!",
+  "ppalText": "Desarrollo de  aplicaciones web con HTML, CSS, JavaScript y frameworks como Node.js, gestionando bases de datos no relacionales con MongoDB y utilizando herramientas de inteligencia artificial para optimizar el desarrollo de software, siempre garantizando soluciones funcionales, éticas, y responsables que prioricen la experiencia del usuario, la privacidad y la seguridad de los datos.",
+  "user": {
+    "$oid": "681e9f8d177321e3de7406a8"
+  },
+  "course": {
+    "$oid": "681bf24cb0e13760f19cb073"
+  },
+  "comments": [
+    {
+      "$oid": "681ea145177321e3de7406d5"
+    }
+  ],
+  "status": true,
+  "createdAt": {
+    "$date": "2025-05-10T00:39:31.651Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-10T00:43:49.955Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "681ea0d9177321e3de7406ba"
+  },
+  "title": "¡Bienvenidos a Taller III!",
+  "ppalText": "El curso de Taller IlI pretende implementar proyectos y actividades que enfoquen al alumno a un ambiente práctico de la programación. En este curso el estudiante tendrá la capacidad de desarrollar aplicaciones con tecnología Web y móvil, mediante los conocimientos tanto teóricos como prácticos de Node.js, ReactJs, Railway y utilizando el lenguaje de programación JavaScript, esto implica que el estudiante tendrá la capacidad de poder instalar y configurar un Web Api, una página web, conjunto a la capacidad de conectar sus aplicaciones a bases de datos NoSQL y conexión en la nube.",
+  "user": {
+    "$oid": "681e9f8d177321e3de7406a8"
+  },
+  "course": {
+    "$oid": "681bf252b0e13760f19cb077"
+  },
+  "comments": [
+    {
+      "$oid": "681ea15e177321e3de7406da"
+    }
+  ],
+  "status": true,
+  "createdAt": {
+    "$date": "2025-05-10T00:42:01.462Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-10T00:44:14.300Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "681ea10d177321e3de7406cb"
+  },
+  "title": "¡Bienvenidos a Tecnología III!",
+  "ppalText": "Diseño y desarrollo de aplicaciones con Node.js y React.js bajo el patrón MVC, integrando bases de datos NoSQL locales o remotas, y emplear herramientas de inteligencia artificial para optimizar el desarrollo de software, garantizando soluciones tecnológicas efectivas, responsables y éticas que prioricen la privacidad y seguridad de la información en entornos empresariales.",
+  "user": {
+    "$oid": "681e9f8d177321e3de7406a8"
+  },
+  "course": {
+    "$oid": "681bf258b0e13760f19cb07b"
+  },
+  "comments": [
+    {
+      "$oid": "681ea170177321e3de7406df"
+    }
+  ],
+  "status": true,
+  "createdAt": {
+    "$date": "2025-05-10T00:42:53.489Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-10T00:44:32.231Z"
+  }
+}]

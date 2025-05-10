@@ -1,0 +1,39 @@
+[{
+  "_id": {
+    "$oid": "681bf24cb0e13760f19cb073"
+  },
+  "name": "Practica supervisada",
+  "status": true,
+  "createdAt": {
+    "$date": "2025-05-07T23:52:44.646Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-07T23:52:44.646Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "681bf252b0e13760f19cb077"
+  },
+  "name": "Taller",
+  "status": true,
+  "createdAt": {
+    "$date": "2025-05-07T23:52:50.929Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-07T23:52:50.929Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "681bf258b0e13760f19cb07b"
+  },
+  "name": "Tecnología",
+  "status": true,
+  "createdAt": {
+    "$date": "2025-05-07T23:52:56.370Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-07T23:52:56.370Z"
+  }
+}]

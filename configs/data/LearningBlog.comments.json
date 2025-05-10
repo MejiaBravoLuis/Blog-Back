@@ -1,0 +1,42 @@
+[{
+  "_id": {
+    "$oid": "681ea145177321e3de7406d5"
+  },
+  "comment": "¡Me encanta este curso!",
+  "user": "Luis Mejia",
+  "status": true,
+  "createdAt": {
+    "$date": "2025-05-10T00:43:49.946Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-10T00:43:49.946Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "681ea15e177321e3de7406da"
+  },
+  "comment": "Me interesa más sobre esta clase!",
+  "user": "Luis Mejia",
+  "status": true,
+  "createdAt": {
+    "$date": "2025-05-10T00:44:14.295Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-10T00:44:14.295Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "681ea170177321e3de7406df"
+  },
+  "comment": "Me gusta el contenido de esta asignatura!",
+  "user": "Luis Mejia",
+  "status": true,
+  "createdAt": {
+    "$date": "2025-05-10T00:44:32.228Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-10T00:44:32.228Z"
+  }
+}]
