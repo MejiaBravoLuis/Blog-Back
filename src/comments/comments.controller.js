@@ -3,10 +3,9 @@ import Publication from "../publications/publication.model.js";
 
 export const addCommitTo = async (req, res) => {
     try {
-        const { comment, user } = req.body; // Aseguramos que estamos desestructurando correctamente
+        const { comment, user } = req.body; 
         const { id } = req.params;
 
-        // Validar que el comentario no esté vacío
         if (!comment) {
             return res.status(400).json({
                 success: false,
@@ -14,7 +13,6 @@ export const addCommitTo = async (req, res) => {
             });
         }
 
-        // Comprobamos si la publicación existe
         const publication = await Publication.findById(id);
         if (!publication) {
             return res.status(404).json({
@@ -23,22 +21,20 @@ export const addCommitTo = async (req, res) => {
             });
         }
 
-        // Creamos el nuevo comentario
         const newComment = new Comment({
             comment,
-            user: user || "Anonymous"  // Si no se pasa un user, ponemos "Anonymous"
+            user: user || "Anonymous" 
         });
 
         await newComment.save();
 
-        // Asociamos el comentario con la publicación
         publication.comments.push(newComment._id);
         await publication.save();
 
         res.status(201).json({
             success: true,
             message: "You've added a new comment",
-            comment: newComment
+            data: newComment 
         });
     } catch (error) {
         res.status(500).json({
@@ -48,6 +44,7 @@ export const addCommitTo = async (req, res) => {
         });
     }
 };
+
 
 export const listMyCommit = async (req, res) => {
     try {
@@ -97,29 +94,30 @@ export const updtateCommit = async (req, res) => {
 
 export const deleteCommit = async (req, res) => {
     try {
-
         const { id } = req.params;
-        const userId = req.user._id;
-        
-        const comment = await Comment.findOne({ _id: id, user: userId });
 
+        const comment = await Comment.findByIdAndDelete(id);
         if (!comment) {
-            return res.status(403).json({
+            return res.status(404).json({
                 success: false,
-                message: "You are not allowed to delete this commit"
+                message: "Comentario no encontrado"
             });
         }
-        await Comment.findByIdAndDelete(id);
+
+        await Publication.updateOne(
+            { "comments": id }, 
+            { $pull: { comments: id } } 
+        );
 
         res.status(200).json({
             success: true,
-            message: "You've deleted this commit successfully!!!"
+            message: "Comentario eliminado correctamente"
         });
     } catch (error) {
         res.status(500).json({
             success: false,
-            message: "Ups, something went wrong trying to delete the commit",
+            message: "Hubo un error al eliminar el comentario",
             error
-        })
+        });
     }
-}
+};

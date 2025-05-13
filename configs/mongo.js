@@ -24,10 +24,10 @@ export const dbConnection = async () => {
                 if (!adminExists) {
                     const adminPassword = await hash("12345678"); 
                     await Usuario.create({
-                        name: "Admin",
-                        surname: "User",
-                        username: "admin",
-                        email: "admin@gmail.com",
+                        name: "Elmer",
+                        surname: "Santos",
+                        username: "esantos",
+                        email: "elmer@gmail.com",
                         password: adminPassword,
                         role: "ADMIN"
                     });

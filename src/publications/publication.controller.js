@@ -175,14 +175,14 @@ export const getPublicationsByCourseName = async (req, res) => {
         }
 
         const publications = await Publication.find({ course: course._id })
-            .populate("user", "username") // Para obtener el nombre del usuario que publicó la publicación
-            .populate("course", "name") // Para obtener el nombre del curso
+            .populate("user", "username")
+            .populate("course", "name")
             .populate({
                 path: "comments",
-                select: "comment user status createdAt", // Seleccionamos los campos que nos interesa mostrar
+                select: "comment user status createdAt",
                 populate: {
-                    path: "user", // Para obtener el nombre del usuario asociado a cada comentario
-                    select: "userName", // Aquí seleccionas el campo que representa el nombre del usuario
+                    path: "user", 
+                    select: "userName",
                 },
             });
 
