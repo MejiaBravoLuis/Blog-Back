@@ -2,7 +2,7 @@ import { Router } from "express";
 import { check } from "express-validator";
 
 import {
-    getPublication,
+    getPublicationById,
     addPublication,
     updatePublication,
     deletePublication,
@@ -15,7 +15,7 @@ import { existPublication } from "../helpers/db-validator.js";
 
 const router = Router();
 
-router.get("/", getPublication);
+router.get("/:id", getPublicationById);
 
 router.post(
     "/",

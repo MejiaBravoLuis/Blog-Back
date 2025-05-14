@@ -2,26 +2,51 @@ import Publication from "./publication.model.js";
 import Comment from "../comments/comments.model.js";
 import Course from "../courses/course.model.js";
 
-export const getPublication = async (req, res) => {
+export const getPublicationById = async (req, res) => {
+    const { id } = req.params;
+
     try {
-        const publications = await Publication.find({ status: true })
-            .populate("user", "name username")
-            .populate("course", "name")
-            .populate({ path: "comments", select: "comment" });
+        const publication = await Publication.findById(id)
+        .where({ status: true })
+        .populate({
+          path: "comments",
+          select: "comment user createdAt",
+          populate: {
+            path: "user",
+            select: "username",
+          },
+        })
+        .populate({
+          path: "user",
+          select: "username",
+        })
+        .populate({
+          path: "course",
+          select: "name",
+        });
+              
+
+        if (!publication) {
+            return res.status(404).json({
+                success: false,
+                message: "Publication not found",
+            });
+        }
 
         res.json({
             success: true,
-            publications
+            publication,
         });
 
     } catch (error) {
         res.status(500).json({
             success: false,
-            message: "Ups, something went wrong trying to list the publications",
-            error: error.message
+            message: "Error retrieving publication",
+            error: error.message,
         });
     }
 };
+
 
 export const addPublication = async (req, res) => {
     try {
