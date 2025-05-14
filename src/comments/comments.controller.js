@@ -65,32 +65,41 @@ export const listMyCommit = async (req, res) => {
 }
 
 export const updtateCommit = async (req, res) => {
-    try {
-        const { id } = req.params;
-        const userId = req.user._id;
+  try {
+    const { id } = req.params;
+    const { comment, user } = req.body;
 
-        const comment = await Comment.findOne({ _id : id, user : userId });
+    console.log("Datos recibidos para actualización:", { comment, user });
 
-        if (!comment) {
-            return res.status(403).json({
-                success: false,
-                message: "You are not allowed to edit this comment"
-            });
-        }
-        const updatedComment = await Comment.findByIdAndUpdate(id, req.body, { new : true });
-
-        res.json({
-            success: true,
-            message: "You've updated your commit successfully!!",
-            commit: updatedComment
-        });
-    } catch (error) {
-        res.status(500).json({
-            success: false,
-            message: "Ups, something went wrong trying to update the commit"
-        });
+    const commentToUpdate = await Comment.findById(id);
+    if (!commentToUpdate) {
+      return res.status(404).json({
+        success: false,
+        message: "Comentario no encontrado",
+      });
     }
-}
+
+    commentToUpdate.comment = comment || commentToUpdate.comment;
+    commentToUpdate.user = user || commentToUpdate.user;
+
+    await commentToUpdate.save(); 
+
+    res.json({
+      success: true,
+      message: "Comentario actualizado con éxito",
+      comment: commentToUpdate,
+    });
+  } catch (error) {
+    console.error("Error en backend:", error);
+    res.status(500).json({
+      success: false,
+      message: "Hubo un problema al actualizar el comentario",
+      error: error.message,
+    });
+  }
+};
+
+
 
 export const deleteCommit = async (req, res) => {
     try {
